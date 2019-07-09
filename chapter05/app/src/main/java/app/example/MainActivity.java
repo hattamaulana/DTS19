@@ -1,27 +1,55 @@
 package app.example;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import app.example.adapters.ContactAdapter;
-import app.example.adapters.SuperHeroAdapter;
+import app.example.adapters.MultipleContactViewAdapter;
+import app.example.models.ColumnContact;
 import app.example.models.Contact;
-import app.example.models.SuperHero;
 
-public class MainActivity extends AppCompatActivity
-        implements ContactAdapter.OnContactClickListener {
+public class MainActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
-    /* List<SuperHero> heroList = new ArrayList<>(); */
-    List<Contact> contacts = new ArrayList<>();
+    List<Contact> contacts;
+    Contact[] arrayContact = new Contact[]{
+            new Contact(
+                    "Iron Man",
+                    "102018308",
+                    "https://cdn4.iconfinder.com/data/icons/famous-characters-add-on-vol-1-flat/48/Famous_Character_-_Add_On_1-14-512.png"
+            ),
+            new Contact(
+                    "Bat Man",
+                    "102018309",
+                    "https://cdn4.iconfinder.com/data/icons/famous-characters-add-on-vol-1-flat/48/Famous_Character_-_Add_On_1-22-512.png"
+            ),
+            new Contact(
+                    "Groot",
+                    "102018307",
+                    "https://cdn4.iconfinder.com/data/icons/famous-characters-add-on-vol-1-flat/48/Famous_Character_-_Add_On_1-21-512.png"
+            ),
+            new Contact(
+                    "Sonic",
+                    "102018301",
+                    "https://cdn4.iconfinder.com/data/icons/famous-characters-add-on-vol-1-flat/48/Famous_Character_-_Add_On_1-26-512.png"
+            )
+    };
+
+    private int layoutRecyclerview = 1;
+    private RecyclerView.LayoutManager layoutManager =
+            new LinearLayoutManager(MainActivity.this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,49 +59,50 @@ public class MainActivity extends AppCompatActivity
         // Menghubungkan view ke variabel global.
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
 
-        // Menambahkan object superhero dengan atribut nama 'petruk' ke dalam list
-        contacts.add(new Contact(
-                "Iron Man",
-                "102018308",
-                "https://cdn4.iconfinder.com/data/icons/famous-characters-add-on-vol-1-flat/48/Famous_Character_-_Add_On_1-14-512.png"
-        ));
-        contacts.add(new Contact(
-                "Bat Man",
-                "102018309",
-                "https://cdn4.iconfinder.com/data/icons/famous-characters-add-on-vol-1-flat/48/Famous_Character_-_Add_On_1-22-512.png"
-        ));
-        contacts.add(new Contact(
-                "Groot",
-                "102018307",
-                "https://cdn4.iconfinder.com/data/icons/famous-characters-add-on-vol-1-flat/48/Famous_Character_-_Add_On_1-21-512.png"
-        ));
-        contacts.add(new Contact(
-                "Sonic",
-                "102018301",
-                "https://cdn4.iconfinder.com/data/icons/famous-characters-add-on-vol-1-flat/48/Famous_Character_-_Add_On_1-26-512.png"
-        ));
+        List<ColumnContact> contacts = new ArrayList<>();
 
-        /* heroList.add(new SuperHero("Petruk"));
-        heroList.add(new SuperHero("Gareng")); */
+        // Menambahkan object ke dalam list
+        for (int i = 0; i < arrayContact.length - 1; i++) {
+            contacts.add(new ColumnContact(ColumnContact.COLUMN_GRID, arrayContact[i]));
+        }
 
-        // Menginstansiasi class SuperHeroAdapter
-        // yang digunakan sebagai adapter dari recyclerview
-        ContactAdapter adapter = new ContactAdapter(contacts);
-        adapter.setOnClickListener(this);
-        /* SuperHeroAdapter adapter = new SuperHeroAdapter(heroList); */
+        contacts.add(new ColumnContact(ColumnContact.COLUMN_LIST, arrayContact[arrayContact.length - 1]));
 
         // Set adapter dan layout manager pada recyclerview,
         // adapter yang digunakan untuk menampilkan list data
         // layout manager digunakan untuk men-set layout yang digunakan.
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+        recyclerView.setAdapter((MultipleContactViewAdapter) new MultipleContactViewAdapter(contacts));
+        recyclerView.setLayoutManager(layoutManager);
     }
 
-    @Override
-    public void onClick(View view, int position) {
-        Contact item = contacts.get(position);
+    /**
+     * Method untuk menghanlde click pada
+     * ImageButton Setting Layoutview untuk recyclerview
+     * yang ada di toolbar.
+     *
+     * @param view
+     */
+    public void layoutSettingOnClick(View view) {
+        ContactAdapter adapter;
+        ImageView settingLayout = (ImageView) view.findViewById(R.id.settingLayout);
 
-        Toast.makeText(MainActivity.this, "Nama : "+ item.getName(), Toast.LENGTH_LONG)
-                .show();
+        Collections.addAll(contacts, arrayContact);
+
+        if (layoutRecyclerview == 1) {
+            settingLayout.setImageResource(R.drawable.ic_list);
+
+            layoutRecyclerview = 2;
+            layoutManager = new GridLayoutManager(MainActivity.this, 3);
+            adapter = new ContactAdapter(R.layout.grid_item_contact, contacts);
+        } else {
+            settingLayout.setImageResource(R.drawable.ic_grid);
+
+            layoutRecyclerview = 1;
+            layoutManager = new LinearLayoutManager(MainActivity.this);
+            adapter = new ContactAdapter(R.layout.list_item_contact, contacts);
+        }
+
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(layoutManager);
     }
 }
