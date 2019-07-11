@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView android:layout_width="match_parent"
+<androidx.cardview.widget.CardView
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="32dp"
+    android:layout_marginStart="32dp"
+    android:layout_marginEnd="32dp"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -51,18 +56,18 @@
 
         <ImageView
             android:id="@+id/imgStar1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
             android:layout_marginBottom="8dp"
-            android:src="@drawable/ic_star_active"
+            android:src="@drawable/ic_star_passive"
             app:layout_constraintBottom_toBottomOf="@id/imgBook"
             app:layout_constraintStart_toStartOf="@id/lblWriter"
             />
 
         <ImageView
             android:id="@+id/imgStar2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
             android:layout_marginBottom="8dp"
             android:src="@drawable/ic_star_passive"
             android:layout_marginStart="8dp"
@@ -72,8 +77,8 @@
 
         <ImageView
             android:id="@+id/imgStar3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
             android:layout_marginBottom="8dp"
             android:layout_marginStart="8dp"
             android:src="@drawable/ic_star_passive"
@@ -83,8 +88,8 @@
 
         <ImageView
             android:id="@+id/imgStar4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
             android:layout_marginBottom="8dp"
             android:layout_marginStart="8dp"
             android:src="@drawable/ic_star_passive"
@@ -94,8 +99,8 @@
 
         <ImageView
             android:id="@+id/imgStar5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
             android:layout_marginBottom="8dp"
             android:layout_marginStart="8dp"
             android:src="@drawable/ic_star_passive"
