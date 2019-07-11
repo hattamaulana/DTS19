@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_sign_up"
+    tools:context=".SignUpActivity"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ImageView
+        android:id="@+id/imgBook"
+        android:layout_width="128dp"
+        android:layout_height="128dp"
+        android:src="@drawable/ic_idea"
+        android:layout_marginTop="64dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/titleSignUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:layout_marginTop="16dp"
+        android:text="Welcome!"
+        android:textColor="#384F7D"
+        android:textStyle="bold"
+        android:textSize="32sp"
+        app:layout_constraintTop_toBottomOf="@id/imgBook"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/subTitleSignUp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginEnd="64dp"
+        android:text="Create your account to get started. After that, you can share books and make friends."
+        android:textAlignment="center"
+        android:textSize="14sp"
+        android:textColor="#CC384F7D"
+        app:layout_constraintTop_toBottomOf="@id/titleSignUp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/placeholderEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="32dp"
+        android:text="EMAIL"
+        android:textColor="#4D445984"
+        app:layout_constraintTop_toBottomOf="@id/subTitleSignUp"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <EditText
+        android:id="@+id/txtEmail"
+        android:background="@drawable/bg_edt_auth"
+        android:elevation="8dp"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/placeholderEmail"
+        />
+
+    <TextView
+        android:id="@+id/placeholderPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="16dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:text="PASSWORD"
+        android:textColor="#4D445984"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtEmail" />
+
+    <EditText
+        android:id="@+id/txtPassword"
+        android:background="@drawable/bg_edt_auth"
+        android:elevation="8dp"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/placeholderPassword"
+        />
+
+    <TextView
+        android:id="@+id/placeholderPasswordConfirm"
+        android:layout_width="wrap_content"
+        android:layout_height="16dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:text="TYPE PASSWORD AGAIN"
+        android:textColor="#4D445984"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtPassword" />
+
+    <EditText
+        android:id="@+id/txtPasswordConfirm"
+        android:background="@drawable/bg_edt_auth"
+        android:elevation="8dp"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/placeholderPasswordConfirm"
+        />
+
+    <Button
+        android:background="@drawable/bg_button_sign_up"
+        android:id="@+id/btnSignUp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginTop="48dp"
+        android:text="SIGN UP"
+        android:textColor="#fff"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtPasswordConfirm"
+        />
+
+    <TextView
+        android:id="@+id/descLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Already have an account? "
+        android:textAlignment="center"
+        android:textColor="#CC384F7D"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnSignUp"
+        />
+
+    <TextView
+        android:id="@+id/lblLogin"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Login"
+        android:textAlignment="center"
+        android:textColor="#384F7D"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/descLogin"
+        app:layout_constraintTop_toTopOf="@id/descLogin"
+        app:layout_constraintStart_toEndOf="@id/descLogin"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

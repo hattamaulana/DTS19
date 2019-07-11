@@ -26,4 +26,14 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    // View Component
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
+
+    // Image Download and Cache Library
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
+    // Adapter View Library
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.46'
 }
