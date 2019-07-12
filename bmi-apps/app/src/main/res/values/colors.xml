@@ -6,4 +6,5 @@
 
     <color name="textFlat">#586B75</color>
     <color name="bgFlat">#374A53</color>
+    <color name="white">#fff</color>
 </resources>

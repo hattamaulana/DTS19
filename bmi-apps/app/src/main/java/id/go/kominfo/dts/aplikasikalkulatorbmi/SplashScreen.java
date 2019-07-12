@@ -28,13 +28,10 @@ public class SplashScreen extends AppCompatActivity {
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(Color.TRANSPARENT);
         }
+    }
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                startActivity(new Intent(SplashScreen.this, MainActivity.class));
-                finish();
-            }
-        }, 3000);
+    public void skip(View view) {
+        startActivity(new Intent(SplashScreen.this, MainActivity.class));
+        finish();
     }
 }
