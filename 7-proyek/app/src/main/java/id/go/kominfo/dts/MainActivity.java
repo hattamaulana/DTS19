@@ -5,9 +5,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 
@@ -26,6 +30,18 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (Build.VERSION.SDK_INT >= 21) {
+            // Get Window Android
+            Window window = getWindow();
+
+            // Set Fullscreen
+            // change status bar color to transparent
+            window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(Color.TRANSPARENT);
+        }
+
         setContentView(R.layout.activity_main);
 
         // Membuat list data book dengan
@@ -34,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         list.addAll(Arrays.asList(Data.BOOKS));
 
         // Membuat Adapter dari class List book adapter
-        ListBookAdapter adapter = new ListBookAdapter(list);
+        ListBookAdapter adapter = new ListBookAdapter(MainActivity.this, list);
         adapter.setOnItemClickListener(itemAdapterActionCallback);
 
         // Binding View dari layout ke variabel
@@ -46,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     *
      * Atribut ini merupakan callback
      * yang digunakan untuk Action dari OnClick Listener di adapter list.
      *

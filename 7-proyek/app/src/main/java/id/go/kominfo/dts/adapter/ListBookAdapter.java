@@ -1,19 +1,25 @@
 package id.go.kominfo.dts.adapter;
 
+import android.content.Context;
 import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.squareup.picasso.OkHttp3Downloader;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import id.go.kominfo.dts.Data;
 import id.go.kominfo.dts.R;
 import id.go.kominfo.dts.models.Book;
+import okhttp3.OkHttpClient;
+import okhttp3.Protocol;
 
 /**
  * Class ini merupakan Sebuah adapter
@@ -23,8 +29,11 @@ import id.go.kominfo.dts.models.Book;
 
 public class ListBookAdapter extends BaseQuickAdapter<Book, BaseViewHolder> {
 
-    public ListBookAdapter(@Nullable List<Book> data) {
+    private Context mContext;
+
+    public ListBookAdapter(Context context, @Nullable List<Book> data) {
         super(R.layout.item_book, data);
+        this.mContext = context;
     }
 
     @Override
@@ -35,8 +44,12 @@ public class ListBookAdapter extends BaseQuickAdapter<Book, BaseViewHolder> {
 
         // Mendownload dan menampilkan Gambar Buku
         // sesuai data.
+        final OkHttpClient client = new OkHttpClient.Builder()
+                .protocols(Collections.singletonList(Protocol.HTTP_1_1))
+                .build();
+
         Picasso.get()
-                .load(item.getImg())
+                .load(Data.HOST + item.getImg())
                 .placeholder(R.drawable.sk2k)
                 .into( (ImageView) helper.itemView.findViewById(R.id.imgBook));
 
@@ -52,7 +65,7 @@ public class ListBookAdapter extends BaseQuickAdapter<Book, BaseViewHolder> {
         // Looping untuk menset star image view
         // sesuai data.
         for(int i = 1; i <= item.getStars(); i++) {
-            ImageView star = (ImageView) helper.itemView.findViewById(stars.get(i-1));
+            ImageView star = helper.itemView.findViewById(stars.get(i-1));
             star.setImageResource(R.drawable.ic_star_active);
         }
     }
