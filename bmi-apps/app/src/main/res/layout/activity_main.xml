@@ -91,7 +91,6 @@
                 android:layout_height="24dp"
                 android:layout_margin="16dp"
                 android:layout_marginTop="24dp"
-                android:checked="true"
                 android:background="@drawable/ic_male_passive"
                 android:button="@android:color/transparent"
                 />
@@ -127,6 +126,7 @@
                 android:layout_height="24dp"
                 android:layout_margin="16dp"
                 android:layout_marginTop="24dp"
+                android:checked="true"
                 android:background="@drawable/ic_female_active"
                 android:button="@android:color/transparent"
                 />

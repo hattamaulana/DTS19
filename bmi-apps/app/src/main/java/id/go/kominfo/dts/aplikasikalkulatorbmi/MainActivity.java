@@ -4,6 +4,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -34,8 +35,11 @@ public class MainActivity extends AppCompatActivity {
     private TextView lblFemale;
     private RadioButton radioMale;
     private RadioButton radioFemale;
+    private LinearLayout male;
+    private LinearLayout female;
 
     private String mGender;
+    private Object Context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,12 +64,11 @@ public class MainActivity extends AppCompatActivity {
         mBobotEdt = (EditText) findViewById(R.id.edtWeight);
         mTinggiEdt = (EditText) findViewById(R.id.edtHeight);
         radioMale = (RadioButton) findViewById(R.id.pilihMale);
-        radioMale = (RadioButton) findViewById(R.id.pilihFemale);
+        radioFemale = (RadioButton) findViewById(R.id.pilihFemale);
         lblMale = (TextView) findViewById(R.id.lblMale);
         lblFemale = (TextView) findViewById(R.id.lblFemale);
-
-        LinearLayout male = (LinearLayout) findViewById(R.id.wrapperRadioMale);
-        LinearLayout female = (LinearLayout) findViewById(R.id.wrapperRadioFemale);
+        male = (LinearLayout) findViewById(R.id.wrapperRadioMale);
+        female = (LinearLayout) findViewById(R.id.wrapperRadioFemale);
 
         for (LinearLayout btn: new LinearLayout[]{ male, female }) {
             btn.setOnClickListener(onCheckAction(btn));
@@ -93,11 +96,15 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (layout.getId() == R.id.wrapperRadioMale) {
                     mGender = "Laki-laki";
+                    male.setBackgroundColor(getResources().getColor(R.color.textFlat));
+                    female.setBackgroundColor(getResources().getColor(R.color.bgFlat));
                     changeStatus(radioMale, lblMale, true,
                             R.drawable.ic_male_active);
                     changeStatus(radioFemale, lblFemale, false,
                             R.drawable.ic_female_passive);
                 } else {
+                    male.setBackgroundColor(getResources().getColor(R.color.bgFlat));
+                    female.setBackgroundColor(getResources().getColor(R.color.textFlat));
                     changeStatus(radioMale, lblMale, false,
                             R.drawable.ic_male_passive);
                     changeStatus(radioFemale, lblFemale, true,
@@ -110,12 +117,9 @@ public class MainActivity extends AppCompatActivity {
         };
     }
 
-    @SuppressLint("ResourceAsColor")
     private void changeStatus(RadioButton rb, TextView txt, boolean isChecked, int bg) {
-        Log.d(TAG, "changeStatus: "+ bg);
-
         rb.setBackgroundResource(bg);
-        txt.setTextColor(isChecked ? R.color.textFlat: R.color.white);
+        txt.setTextColor(getResources().getColor(!isChecked ? R.color.textFlat: R.color.white));
     }
 
     private View.OnClickListener increaseOnClickAction(final ImageView img) {
