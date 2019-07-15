@@ -1,0 +1,14 @@
+<!--
+  ~
+  ~ Author: Mahatta Maulana
+  ~ Github: https://github.com/hattamaulana
+  ~
+  ~ Copyright (c) 2019.
+  -->
+
+<resources>
+    <string name="app_name">Chapter02starter</string>
+
+    <string name="currentSong">Banana Brain</string>
+    <string name="currentSinger">DIE ANTWORD</string>
+</resources>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~
+  ~ Author: Mahatta Maulana
+  ~ Github: https://github.com/hattamaulana
+  ~
+  ~ Copyright (c) 2019.
+  -->
+
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+
+    <color name="backgroundDark">#1b222f</color>
+    <color name="textLight">#fafafa</color>
+</resources>
