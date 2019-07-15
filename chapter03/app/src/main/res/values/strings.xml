@@ -1,0 +1,44 @@
+<resources>
+    <string name="app_name">DtsChapter03-starter</string>z
+
+    <string name="forgot_password">Lupa Password</string>
+    <string name="sign_in_to_continue">Login</string>
+    <string name="subTittleSuccessActivity">You have successfully changed password. Please use your new passwords when logging in</string>
+    <string name="titleSuccessActivity">Successful!!</string>
+    <string name="subTitleSlideCalendar">What is going to happen tomorrow ?</string>
+    <string name="titleSlideCalendar">Welcome To DTS VSGA</string>
+    <string name="btnGetStarted">MULAI</string>
+    <string name="txtLogin">Login</string>
+    <string name="btnSendRequest">Send Request</string>
+    <string name="edtSetEmail">Enter Your Email</string>
+    <string name="txtUsername">Username</string>
+    <string name="subTitleForgotPassword">Please enter your email below to recieve your password reset instruction</string>
+    <string name="txtNameApp">DIGITAL TALENT</string>
+    <string name="edtUsername">Enter Your Email</string>
+    <string name="edtPassword">Enter Your Password</string>
+    <string name="btnLogIn">MASUK</string>
+    <string name="txtPassword">Password</string>
+    <string name="titleWelcomeBack">Welcome Back</string>
+
+    <string name="next">NEXT</string>
+    <string name="start">START</string>
+    <string name="txtSkip">SKIP</string>
+
+    <string name="confirm_password">Konfirmasi Password</string>
+    <string name="new_password">Password Baru</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="subTitleResetPassword">Ganti Password dan Ingat baik baik</string>
+
+    <!-- Warning -->
+    <string name="allFormEmptyWarning">Semua Input Tidak Boleh Kosong</string>
+    <string name="emailEmptyWarning">Email Tidak Boleh Kosong</string>
+    <string name="passwordEmptyWarning">Password Tidak Boleh Kosong</string>
+    <string name="emailInValidWarning">Email Tidak Valid</string>
+    <string name="passwordInValidWarning">Password Hanya boleh diisi dengan angka</string>
+    <string name="passwordNotMatches">Password Konfirmasi Salah</string>
+    <string name="txt_contact_us">Contact Us</string>
+    <string name="intro_register">Belum Punya Akun ?</string>
+    <string name="txt_register">Daftar</string>
+    <string name="title_registration">Registration</string>
+
+</resources>
