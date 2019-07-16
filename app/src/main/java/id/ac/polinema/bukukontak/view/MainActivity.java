@@ -1,24 +1,32 @@
-package id.ac.polinema.bukukontak;
+package id.ac.polinema.bukukontak.view;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import id.ac.polinema.bukukontak.R;
 import id.ac.polinema.bukukontak.adapter.RecyclerContactListAdapter;
 import id.ac.polinema.bukukontak.data.Contact;
+import id.ac.polinema.bukukontak.view.model.MainViewModel;
 
 public class MainActivity extends AppCompatActivity
 {
+    // ViewModel
+    private MainViewModel model;
+
     // Data
     private RecyclerContactListAdapter recyclerContactListAdapter;
-    private ArrayList<Contact> contactList;
+    private LiveData<List<Contact>> contactList;
 
     // Components
     private RecyclerView recyclerContactList;
@@ -31,21 +39,16 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Mendapatkan instance ViewModel
+        this.model = ViewModelProviders.of(this)
+                .get(MainViewModel.class);
+
         this.initData();
         this.initComponents();
     }
 
     private void initData()
     {
-        this.contactList = new ArrayList<>();
-
-        // Tambahin dummy data..
-        this.contactList.add(new Contact("Yoppy Y.", "085-123-456"));
-        this.contactList.add(new Contact("Alan Walker", "0857-123-456"));
-        this.contactList.add(new Contact("Hey Twayo", "0859-123-456"));
-        this.contactList.add(new Contact("Dark Magician", "0859-129-456"));
-        this.contactList.add(new Contact("Arctic Warfare Magnum", "0859-999-999"));
-
         // Seting recycler view-nya
         this.recyclerContactListAdapter = new RecyclerContactListAdapter(this);
     }
@@ -59,17 +62,26 @@ public class MainActivity extends AppCompatActivity
         this.edtName = this.findViewById(R.id.edt_name);
         this.edtPhone = this.findViewById(R.id.edt_phone);
 
-        // Load data ke recycler View
-        this.recyclerContactListAdapter.setContactList(this.contactList);
+
+        // Mengambil data dari viewmodel.
+        this.model.getContactList()
+                .observe(this, observer);
     }
+
+    private Observer<List<Contact>> observer =
+            new Observer<List<Contact>>() {
+                @Override
+                public void onChanged(List<Contact> contacts) {
+                    recyclerContactListAdapter.setContactList(contacts);
+                }
+            };
 
     public void onBtnSave_Click(View view)
     {
+        Log.i(MainActivity.class.getName(), "onBtnSave_Click: OK");
         Contact newContact = this.makeContact();
 
-        this.contactList.add(newContact);
-
-        this.recyclerContactListAdapter.setContactList(this.contactList);
+        this.model.saveContact(newContact);
     }
 
     private Contact makeContact()

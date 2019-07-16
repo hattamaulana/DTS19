@@ -9,7 +9,7 @@ import androidx.room.PrimaryKey;
 public class Contact
 {
     @PrimaryKey(autoGenerate = true)
-    private Integer id;
+    private int id;
 
     @ColumnInfo(name = "name")
     private String name;
@@ -17,14 +17,8 @@ public class Contact
     @ColumnInfo(name = "phone_number")
     private String phoneNumber;
 
-    public Contact()
-    {
-
-    }
-
     public Contact(String name, String phoneNumber)
     {
-        this.id = null;
         this.name = name;
         this.phoneNumber = phoneNumber;
     }
