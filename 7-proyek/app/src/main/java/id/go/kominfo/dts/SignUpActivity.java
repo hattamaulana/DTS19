@@ -90,6 +90,10 @@ public class SignUpActivity extends AppCompatActivity {
         } else if (! Patterns.EMAIL_ADDRESS.matcher(inputs[0].getText()).matches()) {
             showError("Email yang anda masukkan tidak valid.");
             return false;
+        } else if (! inputs[1].getText().toString().trim()
+                    .equals(inputs[2].getText().toString().trim())) {
+            showError("Password tidak Sesuai");
+            return false;
         } else {
             return true;
         }

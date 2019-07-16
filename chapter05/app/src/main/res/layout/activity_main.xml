@@ -32,6 +32,7 @@
             android:layout_marginStart="32dp"
             android:onClick="layoutSettingOnClick"
             android:foregroundGravity="right"
+            android:visibility="gone"
             />
 
     </Toolbar>
