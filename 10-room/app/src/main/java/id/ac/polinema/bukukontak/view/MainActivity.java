@@ -19,8 +19,7 @@ import id.ac.polinema.bukukontak.adapter.RecyclerContactListAdapter;
 import id.ac.polinema.bukukontak.data.Contact;
 import id.ac.polinema.bukukontak.view.model.MainViewModel;
 
-public class MainActivity extends AppCompatActivity
-{
+public class MainActivity extends AppCompatActivity {
     // ViewModel
     private MainViewModel model;
 
@@ -34,63 +33,57 @@ public class MainActivity extends AppCompatActivity
     private EditText edtPhone;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
 
+        this.initComponents();
+        this.initData();
+    }
+
+    private void initData() {
+        // Seting recycler view-nya
+        this.recyclerContactListAdapter = new RecyclerContactListAdapter(this);
         // Mendapatkan instance ViewModel
         this.model = ViewModelProviders.of(this)
                 .get(MainViewModel.class);
 
-        this.initData();
-        this.initComponents();
+        // Mengambil data dari viewmodel.
+        this.model.getContactList()
+                .observe(this, (contacts) ->
+                        recyclerContactListAdapter.setContactList(contacts));
     }
 
-    private void initData()
-    {
-        // Seting recycler view-nya
-        this.recyclerContactListAdapter = new RecyclerContactListAdapter(this);
-    }
-
-    private void initComponents()
-    {
+    /**
+     * Method untuk binding component.
+     *
+     */
+    private void initComponents() {
         this.recyclerContactList = this.findViewById(R.id.recycler_contact_list);
         this.recyclerContactList.setLayoutManager(new LinearLayoutManager(this));
         this.recyclerContactList.setAdapter(this.recyclerContactListAdapter);
 
         this.edtName = this.findViewById(R.id.edt_name);
         this.edtPhone = this.findViewById(R.id.edt_phone);
-
-
-        // Mengambil data dari viewmodel.
-        this.model.getContactList()
-                .observe(this, observer);
     }
 
-    private Observer<List<Contact>> observer =
-            new Observer<List<Contact>>() {
-                @Override
-                public void onChanged(List<Contact> contacts) {
-                    recyclerContactListAdapter.setContactList(contacts);
-                }
-            };
-
-    public void onBtnSave_Click(View view)
-    {
-        Log.i(MainActivity.class.getName(), "onBtnSave_Click: OK");
-        Contact newContact = this.makeContact();
-
-        this.model.saveContact(newContact);
-    }
-
-    private Contact makeContact()
-    {
+    /**
+     * Method untuk mengambil nilai input edit text.
+     *
+     * @return Object Contact
+     */
+    private Contact makeContact() {
+        // Mengambil nilai dari input nama dan nomor telepon.
         String name = this.edtName.getText().toString();
         String phoneNumber = this.edtPhone.getText().toString();
 
-        Contact c = new Contact(name, phoneNumber);
+        return new Contact(name, phoneNumber);
+    }
 
-        return c;
+    public void onBtnSave_Click(View view) {
+        Log.i(MainActivity.class.getName(), "onBtnSave_Click: OK");
+
+        this.model.saveContact(makeContact());
     }
 }

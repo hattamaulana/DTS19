@@ -5,16 +5,25 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 @Entity(tableName = "contact")
 public class Contact
 {
     @PrimaryKey(autoGenerate = true)
+    @SerializedName("id")
+    @Expose
     private int id;
 
     @ColumnInfo(name = "name")
+    @SerializedName("name")
+    @Expose
     private String name;
 
     @ColumnInfo(name = "phone_number")
+    @SerializedName("phone_number")
+    @Expose
     private String phoneNumber;
 
     public Contact(String name, String phoneNumber)

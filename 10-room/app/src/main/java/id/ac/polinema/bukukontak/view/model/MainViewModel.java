@@ -13,15 +13,12 @@ import id.ac.polinema.bukukontak.data.Contact;
 import id.ac.polinema.bukukontak.repository.ContactRepository;
 import id.ac.polinema.bukukontak.view.MainActivity;
 
-public class MainViewModel extends AndroidViewModel
-{
+public class MainViewModel extends AndroidViewModel {
     // Properti Repository
     private ContactRepository repository;
 
-    public MainViewModel(@NonNull Application application)
-    {
+    public MainViewModel(@NonNull Application application) {
         super(application);
-
         this.repository = new ContactRepository(application);
     }
 
@@ -29,8 +26,7 @@ public class MainViewModel extends AndroidViewModel
      * Method untuk menyimpan Kontak
      *
      */
-    public void saveContact(Contact contact)
-    {
+    public void saveContact(Contact contact) {
         // store data ke repo
         Log.i(MainViewModel.class.getName(), "saveContact: OK");
         this.repository.saveContact(contact);
@@ -42,8 +38,7 @@ public class MainViewModel extends AndroidViewModel
      *
      * @return
      */
-    public LiveData<List<Contact>> getContactList()
-    {
+    public LiveData<List<Contact>> getContactList() {
         // Mengambil data dari repo.
         return this.repository.getContactList();
     }

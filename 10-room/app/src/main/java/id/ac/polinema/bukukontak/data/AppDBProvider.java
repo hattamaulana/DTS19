@@ -4,6 +4,8 @@ import android.content.Context;
 
 import androidx.room.Room;
 
+import retrofit2.Retrofit;
+
 public class AppDBProvider
 {
     private static AppDatabase instance;
