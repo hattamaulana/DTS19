@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
+import java.io.IOException;
 import java.util.List;
 
 import id.ac.polinema.bukukontak.R;
@@ -32,27 +33,31 @@ public class MainActivity extends AppCompatActivity {
     private EditText edtName;
     private EditText edtPhone;
 
+    private final String TAG =
+            MainActivity.class.getName();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
 
-        this.initComponents();
         this.initData();
+        this.initComponents();
     }
 
     private void initData() {
         // Seting recycler view-nya
         this.recyclerContactListAdapter = new RecyclerContactListAdapter(this);
+
         // Mendapatkan instance ViewModel
         this.model = ViewModelProviders.of(this)
                 .get(MainViewModel.class);
 
         // Mengambil data dari viewmodel.
         this.model.getContactList()
-                .observe(this, (contacts) ->
-                        recyclerContactListAdapter.setContactList(contacts));
+                .observe(this, (contacts) -> {
+                        recyclerContactListAdapter.setContactList(contacts);
+                });
     }
 
     /**
@@ -82,8 +87,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onBtnSave_Click(View view) {
-        Log.i(MainActivity.class.getName(), "onBtnSave_Click: OK");
-
         this.model.saveContact(makeContact());
+        Log.i(TAG, "onBtnSave_Click: OK");
     }
 }

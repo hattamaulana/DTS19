@@ -93,24 +93,35 @@ class BukuKontak_Service
 			'id' => 21,
 			'name' => 'Rina Dewi Astuti',
 			'phone_number' => '081-256-123-456'
+        );
+        
+        $contact3 = array(
+			'id' => 111,
+			'name' => 'Rina Dewi Astuti',
+			'phone_number' => '081-256-123-456'
+        );
+        
+        $contact4 = array(
+			'id' => 11231,
+			'name' => 'Rina Dewi Astuti',
+			'phone_number' => '081-256-123-456'
 		);
 		
-		$dummyContactList = [$contact1, $contact2];
+		// $dummyContactList = [$contact1, $contact2, $contact3, $contact4];
 		
-		echo json_encode($dummyContactList);
+		// echo json_encode($dummyContactList);
 		
-		/*
+		
 		$contacts = $this->_readFromDb("SELECT * FROM contact");
 		
 		echo json_encode($contacts);
-		*/
 	}
 	
-	/*
 	private function post_contacts($params)
 	{
 		// Harus pakai ini jika content-type-nya Application/Json
-		$rawContent = trim(file_get_contents("php://input"));
+        $rawContent = trim(file_get_contents("php://input"));
+        var_dump(file_get_contents());
 		
 		// Parse jadi array
 		$data = json_decode($rawContent, true);
@@ -118,7 +129,7 @@ class BukuKontak_Service
 		$id          = $data['id'];
 		$name        = $data['name'];
 		$phoneNumber = $data['phone_number'];
-		
+        
 		$inserted = $this->_writeToDb("INSERT INTO contact (name, phone_number) VALUES ('$name', '$phoneNumber')");
 		
 		if($inserted)
@@ -132,7 +143,6 @@ class BukuKontak_Service
 			echo json_encode($insertedContact);
 		}
 	}
-	*/
 }
 
 BukuKontak_Service::main(); ?>

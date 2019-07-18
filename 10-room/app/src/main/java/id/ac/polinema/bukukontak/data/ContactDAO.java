@@ -29,6 +29,6 @@ public interface ContactDAO
     LiveData<List<Contact>> findAll();
 
 
-//    @Delete
-//    void deleteAll();
+    @Query("DELETE FROM contact")
+    void deleteAll();
 }

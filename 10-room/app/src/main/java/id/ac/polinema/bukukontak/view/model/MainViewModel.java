@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
+import java.io.IOException;
 import java.util.List;
 
 import id.ac.polinema.bukukontak.data.Contact;

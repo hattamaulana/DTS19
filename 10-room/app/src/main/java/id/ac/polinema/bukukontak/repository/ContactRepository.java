@@ -7,6 +7,7 @@ import android.util.Log;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import java.io.IOException;
 import java.util.List;
 
 import id.ac.polinema.bukukontak.data.AppDBProvider;
@@ -28,8 +29,7 @@ public class ContactRepository {
     private ContactService service;
 
     // Properti untuk menyimpan data untuk viewModle.
-    private MutableLiveData<List<Contact>> contactList =
-            new MutableLiveData<>();
+    private LiveData<List<Contact>> contactList;
 
     /**
      * Constructor
@@ -52,6 +52,28 @@ public class ContactRepository {
         } else {
             this.saveContactToDb(contact);
         }
+
+        getContactList();
+    }
+
+    private void saveContactToDb(Contact contact) {
+        new SaveTask(obj -> database.contactDAO().addNew((Contact) obj))
+                .execute(contact);
+    }
+
+    private void saveContactToServer(Contact contact) {
+        Call<Contact> call = this.service.postContact(contact);
+        call.enqueue(new Callback<Contact>() {
+            @Override
+            public void onResponse(Call<Contact> call, Response<Contact> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<Contact> call, Throwable t) {
+                Log.e(TAG, "onFailure: ERROR");
+            }
+        });
     }
 
     /**
@@ -60,25 +82,11 @@ public class ContactRepository {
      *
      * @return
      */
-    public synchronized LiveData<List<Contact>> getContactList() {
-        if (this.isOnline()) {
-            this.getContactListFromWeb();
-        } else {
-            this.getContactListFromDb();
-        }
+    public LiveData<List<Contact>> getContactList() {
+        if (this.isOnline()) this.getContactListFromWeb();
 
+        this.getContactListFromDb();
         return this.contactList;
-    }
-
-    private boolean isOnline() {
-        return true;
-    }
-
-    private void saveContactToServer(Contact contact) {
-    }
-
-    private void saveContactToDb(Contact contact) {
-        new SaveTask().execute(contact);
     }
 
     /**
@@ -90,7 +98,7 @@ public class ContactRepository {
         ContactDAO dao = this.database.contactDAO();
 
         // Mengambil data dari DAO
-        contactList.setValue(dao.findAll().getValue());
+        this.contactList = dao.findAll();
     }
 
     /**
@@ -106,7 +114,20 @@ public class ContactRepository {
             new Callback<List<Contact>>() {
                 @Override
                 public void onResponse(Call<List<Contact>> call, Response<List<Contact>> response) {
-                    contactList.setValue(response.body());
+                    ContactDAO dao = database.contactDAO();
+
+                    // save kontak
+                    Contact[] contacts = new Contact[response.body().size()];
+                    for (int i = 0; i < contacts.length; i++) {
+                        contacts[i] = response.body().get(i);
+                    }
+
+                    // delete semua data di database
+                    new DeleteTask(() -> dao.deleteAll()).execute();
+
+                    // Tambahkan semua data ke sqlite
+                    new SaveTask(obj -> database.contactDAO().addNew(obj))
+                            .execute(contacts);
                 }
 
                 @Override
@@ -115,11 +136,8 @@ public class ContactRepository {
                 }
             };
 
-    private class SaveTask extends AsyncTask<Contact, Void, Void> {
-        @Override
-        protected Void doInBackground(Contact... contacts) {
-            database.contactDAO().addNew(contacts[0]);
-            return null;
-        }
+    private boolean isOnline() {
+        // TODO : KEMBALIKAN KE true
+        return true;
     }
 }
