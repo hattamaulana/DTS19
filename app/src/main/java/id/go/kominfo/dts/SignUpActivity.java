@@ -1,134 +1,72 @@
 package id.go.kominfo.dts;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Log;
-import android.util.Patterns;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.ArrayList;
+import com.mobsandgeeks.saripaar.ValidationError;
+import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.annotation.Email;
+import com.mobsandgeeks.saripaar.annotation.NotEmpty;
+import com.mobsandgeeks.saripaar.annotation.Password;
+
 import java.util.List;
 
-public class SignUpActivity extends AppCompatActivity {
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
-    private final String TAG = SignUpActivity.class.getName();
+import static id.go.kominfo.dts.Utils.setFullscreen;
 
-    private EditText[] inputs;
-    private PrefManager mPrefManager;
+public class SignUpActivity extends AppCompatActivity implements Validator.ValidationListener {
+
+    private Validator validator;
+
+    @NotEmpty @Email @BindView(R.id.edtEmail) EditText edtEmail;
+
+    @NotEmpty
+    @Password(scheme = Password.Scheme.ALPHA_NUMERIC_MIXED_CASE_SYMBOLS)
+    @BindView(R.id.edtPassword)
+    EditText edtPassword;
+
+    @OnClick(R.id.btnSignUp) void signUp() {
+        validator.validate();
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        if (Build.VERSION.SDK_INT >= 21) {
-            // Get Window Android
-            Window window = getWindow();
-
-            // Set Fullscreen
-            // change status bar color to transparent
-            window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(Color.TRANSPARENT);
-        }
-
+        setFullscreen(getWindow());
         setContentView(R.layout.activity_sign_up);
 
-        mPrefManager = new PrefManager(SignUpActivity.this);
-
-        inputs = new EditText[]{
-                (EditText) findViewById(R.id.txtEmail),
-                (EditText) findViewById(R.id.txtPassword),
-                (EditText) findViewById(R.id.txtPasswordConfirm)
-        };
+        ButterKnife.bind(this);
+        validator = new Validator(this);
+        validator.setValidationListener(this);
     }
 
-    /**
-     * Method yang digunakan untuk
-     * menghandle click pada button 'Sign Up'
-     *
-     * @param view
-     */
-    public void signUp(View view) {
-        Log.i(TAG, "signUp: OK");
-
-        if (validate()) {
-            mPrefManager.setFirstTimeLaunch(false);
-            startActivity(new Intent(SignUpActivity.this, MainActivity.class));
-            finish();
-        }
+    @Override
+    public void onValidationSucceeded() {
+        App.setPreference(App.KEY_FIRST_TIME_LAUNCH, false);
+        startActivity(new Intent(SignUpActivity.this, MainActivity.class));
+        finish();
     }
 
-    /**
-     * Method ini digunakan untuk melakukan Validasi
-     * ketika
-     * @method signUp di panggil.
-     *
-     * @return boolean.
-     */
-    private boolean validate() {
-        List<EditText> empty = isEmpty(inputs);
+    @Override
+    public void onValidationFailed(List<ValidationError> errors) {
+        for (ValidationError error : errors) {
+            View view = error.getView();
+            String message = error.getCollatedErrorMessage(this);
 
-        if (empty.size() > 0) {
-            if (empty.size() == inputs.length) {
-                showError("Mohon Melengkapi Input.");
+            if (view instanceof EditText) {
+                ((EditText) view).setError(message);
             } else {
-                for(EditText e: empty) showError("Maaf, Lenkapi Input " + e.getHint()
-                        + " Terlebih Dahulu");
+                Toast.makeText(this, message, Toast.LENGTH_LONG).show();
             }
-
-            return false;
-        } else if (! Patterns.EMAIL_ADDRESS.matcher(inputs[0].getText()).matches()) {
-            showError("Email yang anda masukkan tidak valid.");
-            return false;
-        } else if (! inputs[1].getText().toString().trim()
-                    .equals(inputs[2].getText().toString().trim())) {
-            showError("Password tidak Sesuai");
-            return false;
-        } else {
-            return true;
         }
-    }
-
-    /**
-     * Method ini merupakan bagian dari
-     * @method validate
-     *
-     * @param edt
-     * @return
-     */
-    private List<EditText> isEmpty(EditText... edt) {
-        int i = 0;
-        List<EditText> temp = new ArrayList<>();
-
-        for (EditText e: edt) {
-            if (TextUtils.isEmpty(e.getText()))
-                temp.add(e);
-
-            i++;
-        }
-
-        return temp;
-    }
-
-    /**
-     * Method init digunakan hanya untuk
-     * menampilkan error berupa Toas ke layar.
-     *
-     * @param msg, String
-     * Digunakan sebagai pesan yang ditampilkan
-     */
-    private void showError(String msg) {
-        Toast.makeText(SignUpActivity.this, msg, Toast.LENGTH_SHORT)
-                .show();
     }
 }

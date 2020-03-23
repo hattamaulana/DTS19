@@ -6,20 +6,15 @@ import android.widget.ImageView;
 import androidx.annotation.Nullable;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.BaseViewHolder;
-import com.squareup.picasso.OkHttp3Downloader;
+import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 import id.go.kominfo.dts.Data;
 import id.go.kominfo.dts.R;
 import id.go.kominfo.dts.models.Book;
-import okhttp3.OkHttpClient;
-import okhttp3.Protocol;
 
 /**
  * Class ini merupakan Sebuah adapter
@@ -41,12 +36,6 @@ public class ListBookAdapter extends BaseQuickAdapter<Book, BaseViewHolder> {
         // Men-set Judul Buku dan Penulis.
         helper.setText(R.id.lblBookTitle, item.getTitle())
                 .setText(R.id.lblWriter, item.getWriter());
-
-        // Mendownload dan menampilkan Gambar Buku
-        // sesuai data.
-        final OkHttpClient client = new OkHttpClient.Builder()
-                .protocols(Collections.singletonList(Protocol.HTTP_1_1))
-                .build();
 
         Picasso.get()
                 .load(Data.HOST + item.getImg())
