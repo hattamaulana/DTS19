@@ -87,26 +87,5 @@
             app:layout_constraintBottom_toBottomOf="@+id/imageView"
             app:layout_constraintEnd_toEndOf="@+id/lblBookTitle"
             app:layout_constraintStart_toStartOf="@id/lblBookTitle" />
-
-        <ImageView
-            android:id="@+id/imgStar"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginTop="8dp"
-            android:src="@drawable/ic_star_3d"
-            app:layout_constraintStart_toStartOf="@+id/lblBookTitle"
-            app:layout_constraintTop_toBottomOf="@+id/lblBookTitle" />
-
-        <TextView
-            android:id="@+id/lblStar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:text="4"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@id/imgStar"
-            app:layout_constraintStart_toEndOf="@id/imgStar"
-            app:layout_constraintTop_toTopOf="@id/imgStar"
-            />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.appbar.AppBarLayout>

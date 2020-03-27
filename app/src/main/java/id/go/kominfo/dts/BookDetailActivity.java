@@ -13,7 +13,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import id.go.kominfo.dts.models.Book;
-import id.go.kominfo.dts.models.Data;
 
 import static id.go.kominfo.dts.Utils.setFullscreen;
 
@@ -29,7 +28,6 @@ public class BookDetailActivity extends AppCompatActivity {
             BookDetailActivity.class.getName();
 
     @BindView(R.id.imgBook) ImageView mImage;
-    @BindView(R.id.lblStar) TextView mStar;
     @BindView(R.id.lblBookTitle) TextView mTitle;
     @BindView(R.id.lblWriter) TextView mWriter;
 
@@ -51,8 +49,6 @@ public class BookDetailActivity extends AppCompatActivity {
                 .placeholder(R.drawable.sk2k)
                 .into(mImage);
 
-        // Set data ke view
-        mStar.setText("" + book.getStars());
         mTitle.setText(book.getTitle());
         mWriter.setText(book.getWriter());
     }

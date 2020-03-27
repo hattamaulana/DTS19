@@ -2,6 +2,9 @@ package id.go.kominfo.dts;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -19,10 +22,15 @@ import id.go.kominfo.dts.models.Data;
 
 import static id.go.kominfo.dts.Utils.setFullscreen;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements TextWatcher {
+
+    @BindView(R.id.edt_search)
+    EditText edtSearch;
+    private List<Book> list;
 
     @BindView(R.id.rv_book)
     RecyclerView recyclerView;
+    private ListBookAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,11 +40,10 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         // Membuat list data book dengan mengimport semua data di array static Data.
-        List<Book> list = new ArrayList<>();
-        list.addAll(Arrays.asList(Data.BOOKS));
+        list = new ArrayList<>(Arrays.asList(Data.BOOKS));
 
         // Membuat Adapter dari class List book adapter
-        ListBookAdapter adapter = new ListBookAdapter(MainActivity.this, list);
+        adapter = new ListBookAdapter(MainActivity.this, list);
         adapter.setOnItemClickListener((baseQuickAdapter, view, position) -> {
             Book book = (Book) baseQuickAdapter.getItem(position);
             Intent intent = new Intent(MainActivity.this, BookDetailActivity.class);
@@ -46,5 +53,20 @@ public class MainActivity extends AppCompatActivity {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
+
+        edtSearch.addTextChangedListener(this);
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+        // TODO : Filter Data [list]
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
     }
 }
