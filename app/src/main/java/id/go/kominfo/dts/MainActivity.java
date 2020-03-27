@@ -15,6 +15,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import id.go.kominfo.dts.adapter.ListBookAdapter;
 import id.go.kominfo.dts.models.Book;
+import id.go.kominfo.dts.models.Data;
 
 import static id.go.kominfo.dts.Utils.setFullscreen;
 

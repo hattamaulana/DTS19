@@ -5,20 +5,7 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@android:color/primary_text_light</item>
+        <item name="colorAccent">@color/backgroundPrimary</item>
     </style>
-    
-    <style name="TextField">
-        <item name="boxCornerRadiusTopEnd">8dp</item>
-        <item name="boxCornerRadiusTopStart">8dp</item>
-        <item name="boxCornerRadiusBottomEnd">8dp</item>
-        <item name="boxCornerRadiusBottomStart">8dp</item>
-        <item name="android:elevation">4dp</item>
-        <item name="android:paddingEnd">8dp</item>
-        <item name="android:paddingStart">8dp</item>
-        <item name="android:background">@drawable/bg_edt_auth</item>
-        <item name="android:layout_marginBottom">16dp</item>
-        <item name="android:layout_marginStart">32dp</item>
-        <item name="android:layout_marginEnd">32dp</item>
-    </style>
+
 </resources>

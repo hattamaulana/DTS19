@@ -12,7 +12,6 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
-import id.go.kominfo.dts.Data;
 import id.go.kominfo.dts.R;
 import id.go.kominfo.dts.models.Book;
 
@@ -24,21 +23,18 @@ import id.go.kominfo.dts.models.Book;
 
 public class ListBookAdapter extends BaseQuickAdapter<Book, BaseViewHolder> {
 
-    private Context mContext;
-
     public ListBookAdapter(Context context, @Nullable List<Book> data) {
         super(R.layout.item_book, data);
-        this.mContext = context;
     }
 
     @Override
     protected void convert(BaseViewHolder helper, Book item) {
         // Men-set Judul Buku dan Penulis.
         helper.setText(R.id.lblBookTitle, item.getTitle())
-                .setText(R.id.lblWriter, item.getWriter());
+              .setText(R.id.lblWriter, item.getWriter());
 
         Picasso.get()
-                .load(Data.HOST + item.getImg())
+                .load(item.getImg())
                 .placeholder(R.drawable.sk2k)
                 .into( (ImageView) helper.itemView.findViewById(R.id.imgBook));
 

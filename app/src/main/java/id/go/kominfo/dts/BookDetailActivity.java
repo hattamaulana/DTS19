@@ -13,6 +13,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import id.go.kominfo.dts.models.Book;
+import id.go.kominfo.dts.models.Data;
 
 import static id.go.kominfo.dts.Utils.setFullscreen;
 
@@ -46,7 +47,7 @@ public class BookDetailActivity extends AppCompatActivity {
         Book book = getIntent().getParcelableExtra(BOOK_DETAIL);
 
         Picasso.get()
-                .load(Data.HOST + book.getImg())
+                .load(book.getImg())
                 .placeholder(R.drawable.sk2k)
                 .into(mImage);
 

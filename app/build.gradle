@@ -42,7 +42,6 @@ dependencies {
 
     // Adapter View Library
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.1'
-    implementation 'com.mobsandgeeks:android-saripaar:2.0.3'
     implementation 'com.jakewharton:butterknife:10.2.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'

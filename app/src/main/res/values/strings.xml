@@ -1,11 +1,6 @@
 <resources>
     <string name="app_name">Books</string>
     <string name="txt_sinopsis">I was a big Stephen King fan back in the 7th grade, mainly because it was my first experience with books written for adults. After a while though, I stared reading other more obscure novels and I stopped reading King\'s works. Pet Sematary really caught my interest though, and I found it to be much better than many of his other books because of the way it deals so muc|</string>
-    <string name="lbl_signup">Sign Up</string>
-    <string name="lbl_password">Password</string>
-    <string name="lbl_mail">E-Mail</string>
-    <string name="title_welcome">Welcome!</string>
-    <string name="intro_signup">Create your account to get started. After that, you can share books and make friends.</string>
     <string name="lbl_list_buku">List Buku</string>
     <string name="lbl_search">Search</string>
 </resources>
