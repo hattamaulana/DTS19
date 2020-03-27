@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -19,17 +20,19 @@ import static id.go.kominfo.dts.Utils.setFullscreen;
 
 public class MainActivity extends AppCompatActivity {
 
-    @BindView(R.id.listBook) RecyclerView recyclerView;
+    @BindView(R.id.rv_book)
+    RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setFullscreen(getWindow());
         setContentView(R.layout.activity_main);
+        setFullscreen(getWindow());
         ButterKnife.bind(this);
 
         // Membuat list data book dengan mengimport semua data di array static Data.
-        List<Book> list = new ArrayList<>(Arrays.asList(Data.BOOKS));
+        List<Book> list = new ArrayList<>();
+        list.addAll(Arrays.asList(Data.BOOKS));
 
         // Membuat Adapter dari class List book adapter
         ListBookAdapter adapter = new ListBookAdapter(MainActivity.this, list);
@@ -40,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
     }
 }
