@@ -54,6 +54,7 @@
                 android:paddingTop="0dp"
                 android:paddingBottom="0dp"
                 android:layout_gravity="center_vertical"
+                android:inputType="textFilter"
                 android:hint="@string/lbl_search"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />

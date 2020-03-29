@@ -42,8 +42,7 @@ public class MainActivity extends AppCompatActivity implements TextWatcher {
         // Membuat list data book dengan mengimport semua data di array static Data.
         list = new ArrayList<>(Arrays.asList(Data.BOOKS));
 
-        // Membuat Adapter dari class List book adapter
-        adapter = new ListBookAdapter(MainActivity.this, list);
+        adapter = new ListBookAdapter(MainActivity.this, new ArrayList<>(Arrays.asList(Data.BOOKS)));
         adapter.setOnItemClickListener((baseQuickAdapter, view, position) -> {
             Book book = (Book) baseQuickAdapter.getItem(position);
             Intent intent = new Intent(MainActivity.this, BookDetailActivity.class);
@@ -63,7 +62,21 @@ public class MainActivity extends AppCompatActivity implements TextWatcher {
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
-        // TODO : Filter Data [list]
+        if (s.toString().equals("")) {
+            adapter.replaceData(list);
+        }
+
+        ArrayList<Book> _list = new ArrayList<>();
+        for (Book b: list) {
+            String title = b.getTitle().toUpperCase();
+            String search =  s.toString().toUpperCase();
+
+            if (title.contains(search)) {
+                _list.add(b);
+            }
+        }
+
+        adapter.replaceData(_list);
     }
 
     @Override
