@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements TextWatcher {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
-
+        adapter.setEmptyView(R.layout.view_empty_data);
         edtSearch.addTextChangedListener(this);
     }
 

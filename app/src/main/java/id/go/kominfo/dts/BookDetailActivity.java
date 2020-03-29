@@ -30,6 +30,7 @@ public class BookDetailActivity extends AppCompatActivity {
     @BindView(R.id.imgBook) ImageView mImage;
     @BindView(R.id.lblBookTitle) TextView mTitle;
     @BindView(R.id.lblWriter) TextView mWriter;
+    @BindView(R.id.tv_deskripsi) TextView tvDeskripsi;
 
     @OnClick(R.id.back) void back() { finish(); }
 
@@ -51,5 +52,6 @@ public class BookDetailActivity extends AppCompatActivity {
 
         mTitle.setText(book.getTitle());
         mWriter.setText(book.getWriter());
+        tvDeskripsi.setText(book.getDescription());
     }
 }
